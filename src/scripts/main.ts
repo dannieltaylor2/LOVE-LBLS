@@ -36,8 +36,10 @@ document.body.prepend(heroSentinel);
 new IntersectionObserver(([entry]) =>
   header.classList.toggle('scrolled', !entry.isIntersecting),
 ).observe(heroSentinel);
-const chapters = document.querySelectorAll<HTMLElement>('[data-chapter]');
-const chapterLinks = document.querySelectorAll<HTMLAnchorElement>('.chapter-nav a');
+const chapters = document.querySelectorAll<HTMLElement>('[data-chapter], #occasions, #contact');
+const chapterLinks = document.querySelectorAll<HTMLAnchorElement>(
+  '.chapter-nav a, .desktop-nav a, #mobile-menu nav a',
+);
 const chapterObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
@@ -72,7 +74,6 @@ const titles: Record<string, string> = {
   contact: 'Let’s make it personal.',
   terms: 'Terms.',
   privacy: 'Your privacy.',
-  instagram: 'Stay in the loop.',
 };
 document.querySelectorAll<HTMLButtonElement>('[data-info]').forEach((button) =>
   button.addEventListener('click', () => {

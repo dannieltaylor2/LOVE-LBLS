@@ -1,5 +1,6 @@
 ---
 import '@fontsource-variable/inter';
+import interLatin from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
 import '../styles/global.css';
 interface Props {
   title?: string;
@@ -12,6 +13,13 @@ const { title = 'LOVE LABELS® — Ordinary can. Personal story.' } = Astro.prop
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preload" href={interLatin} as="font" type="font/woff2" crossorigin />
+    <link
+      rel="preload"
+      href={import.meta.env.BASE_URL + 'images/products/silver-can.webp'}
+      as="image"
+      fetchpriority="high"
+    />
     <meta name="theme-color" content="#050505" />
     <meta
       name="description"

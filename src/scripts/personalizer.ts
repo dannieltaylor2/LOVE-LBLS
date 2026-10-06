@@ -91,13 +91,14 @@ export function initPersonalizer() {
         art.dataset.design = state.design;
         const name = art.querySelector('[data-label-name]')!;
         name.textContent = (state.name || 'YOUR NAME').toLocaleUpperCase();
-        if (state.name.length < 10) name.removeAttribute('textLength');
-        else name.setAttribute('textLength', '350');
+        name.setAttribute('font-size', String(Math.min(36, 550 / Math.max(1, state.name.length))));
         art.querySelector('[data-label-age]')!.textContent = state.age;
         const message = art.querySelector('[data-label-message]')!;
         message.textContent = (state.message || 'MADE JUST FOR YOU.').toLocaleUpperCase();
-        if (state.message.length < 28) message.removeAttribute('textLength');
-        else message.setAttribute('textLength', '330');
+        message.setAttribute(
+          'font-size',
+          String(Math.min(11, 580 / Math.max(1, state.message.length))),
+        );
         const photo = art.querySelector<SVGImageElement>('[data-label-photo]')!;
         if (photoData) {
           photo.setAttribute('href', photoData);
@@ -108,6 +109,21 @@ export function initPersonalizer() {
         }
       });
     });
+    // Measure only on edits, never during scrolling. Wide glyphs must fit as well as Latin names.
+    for (const selector of ['[data-label-name]', '[data-label-message]']) {
+      const sample = q<SVGTextElement>('.live-can ' + selector);
+      const length = sample.getComputedTextLength();
+      if (length > 350) {
+        const size = (Number(sample.getAttribute('font-size')) * 350) / length;
+        document
+          .querySelectorAll<SVGTextElement>(
+            ['.live-can ', '.mini-can ', '.review-can ']
+              .map((prefix) => prefix + selector)
+              .join(','),
+          )
+          .forEach((text) => text.setAttribute('font-size', String(size)));
+      }
+    }
     q('#message-count').textContent = `${state.message.length} / 80`;
     q('#summary-name').textContent = state.name || 'Someone special';
     q('#summary-occasion').textContent = occasionInput.selectedOptions[0].text;
@@ -327,6 +343,7 @@ export function initPersonalizer() {
   });
   syncInputs();
   render();
+  document.fonts.ready.then(render);
 }
 export function downloadFile(contents: string, filename: string, type: string) {
   const url = URL.createObjectURL(new Blob([contents], { type }));

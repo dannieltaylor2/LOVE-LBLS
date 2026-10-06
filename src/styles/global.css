@@ -4917,3 +4917,123 @@ html {
 .local-unwrap .unwrap-can .can-label-layer {
   opacity: 0;
 }
+
+/* Production readability: secondary UI stays quiet without becoming microscopic. */
+.desktop-nav a,
+.nav-cta,
+.button,
+.text-link {
+  font-size: 11px;
+}
+.preview-note,
+.review-note,
+#photo-help,
+#photo,
+.form-status,
+.footer-links a,
+.footer-links button,
+.footer-bottom,
+.design-caption p,
+.callout p {
+  font-size: 12px;
+  line-height: 1.55;
+}
+.field label,
+fieldset legend,
+.angle-control label {
+  font-size: 11px;
+}
+.footer-links a,
+.footer-links button,
+.footer-bottom a,
+.footer-bottom button {
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+}
+.color-option {
+  min-width: 32px;
+  min-height: 32px;
+}
+@media (max-width: 900px) {
+  .field input,
+  .field select,
+  .field textarea {
+    font-size: 16px;
+  }
+  .process > li > p,
+  .story-copy > p,
+  .personalizer-intro,
+  .hero-description,
+  .section-intro,
+  .story-aside-copy p {
+    font-size: 14px;
+  }
+  .button,
+  .icon-button,
+  .menu-toggle,
+  .design-arrow {
+    min-height: 44px;
+  }
+  .color-option {
+    min-width: 40px;
+    min-height: 40px;
+  }
+  .footer-bottom > div {
+    flex-wrap: wrap;
+  }
+}
+@media (max-width: 600px) {
+  .hero-actions {
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .nav-cta {
+    font-size: 9px;
+  }
+}
+.photo-field > label,
+.photo-field > button,
+.footer-bottom button {
+  font-size: 11px;
+}
+.photo-field > label span,
+.design-field legend span {
+  font-size: 10px;
+}
+.color-option {
+  display: inline-grid;
+  place-items: center;
+}
+/* The travelling sheet occupies this process scene; keep the redundant example out of its path. */
+.object-continuity .process-printed-can {
+  visibility: hidden;
+}
+@media (max-width: 600px) {
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .footer-top > p,
+  .footer-top > p > .text-link {
+    font-size: 12px;
+  }
+  .footer-links {
+    grid-column: 1;
+    grid-row: auto;
+    gap: 4px 24px;
+  }
+  .footer-links a,
+  .footer-links button {
+    min-height: 44px;
+  }
+}
+#main:focus {
+  outline: none;
+}
+.desktop-nav a[aria-current='location'] {
+  color: var(--fg);
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 1px;
+}

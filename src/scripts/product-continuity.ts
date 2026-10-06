@@ -99,6 +99,7 @@ export function mountProductContinuity(onHeroProgress: (progress: number) => voi
   let personalized = false;
   let angle = 0;
   let destroyed = false;
+  let textPaintFrame = 0;
 
   const top = (el: Element) => el.getBoundingClientRect().top + scrollY;
   function box(selector: string, rotation = 0): Pose {
@@ -138,7 +139,10 @@ export function mountProductContinuity(onHeroProgress: (progress: number) => voi
     flat.x = flat.x - flat.w / 2 + (flat.h * 400) / 700 / 2;
     flat.w = (flat.h * 400) / 700;
     printed = box('.process-print .print-sheet', -19);
-    printAt = Math.max(unwrapEnd + 120, printed.y - height * 0.62);
+    printAt = Math.max(
+      unwrapEnd + 120,
+      Math.min(printed.y - height * 0.62, top(q('.how-it-works')) - 80),
+    );
     const gift = box('.process-gift > .can', 6);
     giftAt = Math.max(printAt + height * 0.3, gift.y - height * 0.25);
     const studio = box('.live-can', 12);
@@ -162,7 +166,11 @@ export function mountProductContinuity(onHeroProgress: (progress: number) => voi
     stops = [
       { at: 0, pose: hero, name: 'hero' },
       { at: heroEnd, pose: { ...hero, y: hero.y + heroEnd, r: -7 }, name: 'reveal' },
-      { at: Math.max(heroEnd + 80, gallery.y - height * 0.55), pose: gallery, name: 'collection' },
+      {
+        at: Math.max(heroEnd + 80, Math.min(gallery.y - height * 0.55, top(q('.collection')) - 80)),
+        pose: gallery,
+        name: 'collection',
+      },
       {
         at: Math.min(gallery.y - height * 0.32, story.y - height * 0.5 - 80),
         pose: gallery,
@@ -172,6 +180,8 @@ export function mountProductContinuity(onHeroProgress: (progress: number) => voi
       { at: Math.min(story.y - height * 0.43, unwrapStart - 80), pose: story, name: 'product' },
       { at: unwrapStart, pose: unwrap, name: 'unwrap' },
       { at: unwrapEnd, pose: { ...unwrap, y: unwrap.y + unwrapEnd - unwrapStart }, name: 'flat' },
+      // Settle the metal body in the fourth process column before its copy enters view.
+      { at: Math.max(unwrapEnd + 1, top(q('.how-it-works')) - 80), pose: gift, name: 'process' },
       { at: giftAt, pose: gift, name: 'process' },
       { at: studioStart, pose: studio, name: 'personalize' },
       { at: studioEnd, pose: studio, name: 'personalize' },
@@ -230,8 +240,20 @@ export function mountProductContinuity(onHeroProgress: (progress: number) => voi
         if (target.getAttribute(attribute.name) !== attribute.value)
           target.setAttribute(attribute.name, attribute.value);
       }
-      if (target.textContent !== from.textContent) target.textContent = from.textContent;
+      // Recreate text runs after attribute changes: Chromium otherwise reuses stale SVG glyph paint.
+      if (target instanceof SVGTextElement) target.textContent = from.textContent;
     }
+    // Chromium can retain glyph paint from the old SVG viewport during a 3D handoff.
+    // Invalidate text once after the new transform is committed, not on every scroll frame.
+    if (destroyed) return;
+    cancelAnimationFrame(textPaintFrame);
+    textPaintFrame = requestAnimationFrame(() => {
+      if (destroyed) return;
+      artwork.querySelectorAll('text').forEach((text) => {
+        text.textContent = text.textContent;
+      });
+      textPaintFrame = 0;
+    });
   }
   function paint(set: (value: string) => void, pose: Pose, baseW: number, baseH: number, yaw = 0) {
     set(
@@ -267,7 +289,6 @@ export function mountProductContinuity(onHeroProgress: (progress: number) => voi
     }
     const personalizeProgress = ratio(s, giftAt, studioStart);
     if (s > giftAt && s < studioStart) yaw = Math.sin(personalizeProgress * Math.PI) * 90;
-    syncArtwork(personalizeProgress >= 0.5);
     const studioYaw =
       s >= studioStart && s <= studioExit ? angle * (1 - ratio(s, studioEnd, studioExit)) : 0;
     if (s >= studioStart && s <= studioExit) yaw = studioYaw;
@@ -284,6 +305,7 @@ export function mountProductContinuity(onHeroProgress: (progress: number) => voi
     }
     paint(setBody, pose, 240, 580, studioYaw);
     paint(setLabel, paper, 200, 419, yaw);
+    syncArtwork(personalizeProgress >= 0.5);
     shade.style.opacity = String(1 - flatten * 0.85);
     const backOpen = flatten * (s <= unwrapEnd ? 1 : 1 - ratio(s, unwrapEnd, printAt));
     paperBack.style.transform = `scaleX(${backOpen})`;
@@ -317,6 +339,7 @@ export function mountProductContinuity(onHeroProgress: (progress: number) => voi
   return () => {
     destroyed = true;
     trigger.kill();
+    cancelAnimationFrame(textPaintFrame);
     document.removeEventListener('love-labels:change', updatePersonalization);
     document.removeEventListener('love-labels:angle', updateAngle);
     // Restore the same nodes, including the original hero artwork, before mobile/reduced-motion starts.

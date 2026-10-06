@@ -242,13 +242,23 @@ test('enquiries download honestly and stored designs can be cleared', async ({ p
   await expect(page.locator('#recipient')).toHaveValue('Christopher');
 });
 
-for (const width of [2560, 1920, 1440, 1366, 1024, 768, 430, 390, 360]) {
+for (const [width, height] of [
+  [2560, 1440],
+  [1920, 1080],
+  [1440, 900],
+  [1366, 768],
+  [1024, 768],
+  [768, 1024],
+  [430, 932],
+  [390, 844],
+  [360, 800],
+]) {
   test(`no overflow or lost content after resize at ${width}px`, async ({ page }) => {
     await page.goto('/');
-    await page.setViewportSize({ width, height: width > 1440 ? 1440 : 900 });
+    await page.setViewportSize({ width, height });
     await page.locator('#personalize').scrollIntoViewIfNeeded();
     await page.setViewportSize({ width: width === 390 ? 1440 : 390, height: 900 });
-    await page.setViewportSize({ width, height: 900 });
+    await page.setViewportSize({ width, height });
     await page.waitForTimeout(300);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(
       width,

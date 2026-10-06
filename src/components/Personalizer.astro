@@ -91,7 +91,7 @@ import { designs } from '../data/site';
           >Now you have the freedom!</textarea>
         </div>
         <fieldset class="style-field">
-          <legend>MAKE IT THEIR COLOR</legend>
+          <legend>ACCENT COLOR</legend>
           <div class="color-options">
             {designs.map((d, i) => (
               <button
@@ -157,7 +157,7 @@ import { designs } from '../data/site';
             </svg>
           </span>
         </button>
-        <p class="preview-note">Just exploring? Go for it. No checkout needed.</p>
+        <p class="preview-note">Create and download a design proof. Ordering is not open yet.</p>
       </form>
     </div>
     <div class="personalizer-display">
@@ -190,15 +190,30 @@ import { designs } from '../data/site';
           aria-label="Rotate label preview"
         />
         <div class="angle-buttons">
-          <button type="button" data-angle="-30" aria-pressed="false">
+          <button
+            type="button"
+            data-angle="-30"
+            aria-label="View label from the left"
+            aria-pressed="false"
+          >
             <Can class="mini-can" />
             <span>LEFT</span>
           </button>
-          <button type="button" data-angle="0" aria-pressed="true">
+          <button
+            type="button"
+            data-angle="0"
+            aria-label="View label from the front"
+            aria-pressed="true"
+          >
             <Can class="mini-can" />
             <span>FRONT</span>
           </button>
-          <button type="button" data-angle="30" aria-pressed="false">
+          <button
+            type="button"
+            data-angle="30"
+            aria-label="View label from the right"
+            aria-pressed="false"
+          >
             <Can class="mini-can" />
             <span>RIGHT</span>
           </button>

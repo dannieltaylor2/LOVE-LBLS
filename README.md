@@ -41,6 +41,7 @@ The label studio is a visual design tool. It does **not** process purchases, col
 - `public/images/lifestyle/`: optimized, locally served placeholder photography.
 - `tests/site.spec.ts`: browser integration, responsive and accessibility checks.
 - `tests/motion.spec.ts`: forward/reverse wheel scrolling, deterministic poses, rapid jumps, resize, mobile unwrap and reduced-motion restoration.
+- `tests/production.spec.ts`: touch input, complete information dialogs, keyboard paths and long/wide personalized text.
 
 ## Test
 
@@ -55,7 +56,7 @@ The config automatically uses `/usr/bin/chromium` in the cloud machine, otherwis
 ## Before accepting orders
 
 1. Replace the documented sample artwork and generated editorial photography with approved brand assets; see `ASSETS.md`. The current visual pass follows the five supplied concept references; see `VISUAL-AUDIT.md`.
-2. Set the real public URL in `astro.config.mjs` and add approved social/share assets.
+2. Confirm the configured GitHub Pages URL and add approved social/share assets.
 3. Confirm physical label dimensions, bleed, seam overlap, safe areas, color profile and printing workflow with the printer. Preview rotation is a visual inspection effect, not a 360° product model.
 4. Add the actual pricing, variants, quantity rules, taxes, shipping regions and lead times.
 5. Connect an authorized checkout/order backend and contact destination; add the official Instagram address.

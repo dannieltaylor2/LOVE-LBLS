@@ -67,7 +67,11 @@ export function initMotion() {
   heroProduct.addEventListener(
     'pointerup',
     (e) => {
-      if (e.pointerType !== 'mouse') stopPointer();
+      if (e.pointerType !== 'mouse') {
+        keyboardRevealed = !keyboardRevealed;
+        heroProduct.setAttribute('aria-pressed', String(keyboardRevealed));
+        stopPointer();
+      }
     },
     { signal },
   );
