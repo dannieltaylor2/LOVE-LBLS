@@ -21,7 +21,7 @@ In the Codex cloud workspace, use `npm --cache /workspace/.cache/npm ci` because
 
 - Responsive continuous story, collection, product details, process, studio, editorial photography, occasion menu and footer.
 - Soft pointer/touch label reveal; Enter or Space toggles a full keyboard preview.
-- Scroll-controlled hero transformation, the same gallery can traveling into the product story, and a label unwrap.
+- A persistent can and label travel through the desktop story, unwrap into a flat sheet, wrap for personalization and return to a blank can. Scroll position determines every pose in both directions; mobile uses a local unwrap without desktop pinning.
 - Live name, age, message, occasion, design, color and photo customization.
 - Angle controls, local draft persistence, accessible preview dialog, SVG proof download, local enquiry brief download and clear-saved-design control.
 - Mobile navigation, occasion previews, FAQ, shipping, contact, terms and privacy dialogs.
@@ -35,10 +35,12 @@ The label studio is a visual design tool. It does **not** process purchases, col
 - `src/data/site.ts`: collection, navigation, occasion and lifestyle asset definitions.
 - `src/scripts/personalizer.ts`: validated state, local persistence, photo handling and export.
 - `src/scripts/motion.ts`: scoped GSAP media queries, scroll scenes and pointer reveal.
+- `src/scripts/product-continuity.ts`: persistent object geometry, reversible label unfolding, responsive teardown and artwork synchronization.
 - `src/scripts/main.ts`: navigation, accessible dialogs and enquiry download.
 - `src/styles/global.css`: design system and responsive compositions.
 - `public/images/lifestyle/`: optimized, locally served placeholder photography.
 - `tests/site.spec.ts`: browser integration, responsive and accessibility checks.
+- `tests/motion.spec.ts`: forward/reverse wheel scrolling, deterministic poses, rapid jumps, resize, mobile unwrap and reduced-motion restoration.
 
 ## Test
 

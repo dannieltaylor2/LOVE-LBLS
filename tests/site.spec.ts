@@ -159,42 +159,55 @@ test('keyboard and pointer reveal the hero label', async ({ page }) => {
     .toBe('130px');
 });
 
-test('one gallery object travels into the story, and the label unrolls', async ({ page }) => {
+test('the original hero can and label persist into the product and flat-label scenes', async ({
+  page,
+}) => {
   await page.goto('/');
   await page.evaluate(() => {
-    (window as any).__traveler = document.querySelector('.traveler');
+    (window as any).__motionCan = document.querySelector('.hero-can');
+    (window as any).__motionLabel = document.querySelector('.motion-label-surface .label-artwork');
   });
-  await page.locator('.story-can-target').evaluate((el) =>
-    window.scrollTo({
-      top: el.getBoundingClientRect().top + scrollY + el.clientHeight / 2 - innerHeight / 2,
-      behavior: 'instant',
-    }),
-  );
-  await page.waitForTimeout(1000);
-  const continuity = await page.evaluate(() => {
-    const can = document.querySelector('.traveler')!;
-    const target = document.querySelector('.story-can-target')!;
+  await page.locator('.story-can-target').evaluate((el) => {
+    const r = el.getBoundingClientRect();
+    scrollTo({ top: r.top + scrollY + r.height / 2 - innerHeight / 2, behavior: 'instant' });
+  });
+  await page.waitForTimeout(250);
+  const result = await page.evaluate(() => {
+    const can = document.querySelector('.hero-can')!;
     const a = can.getBoundingClientRect(),
-      b = target.getBoundingClientRect();
+      b = document.querySelector('.story-can-target')!.getBoundingClientRect();
     return {
-      same: can === (window as any).__traveler,
+      sameCan: can === (window as any).__motionCan,
+      sameLabel:
+        document.querySelector('.motion-label-surface .label-artwork') ===
+        (window as any).__motionLabel,
       dx: Math.abs(a.x + a.width / 2 - b.x - b.width / 2),
       dy: Math.abs(a.y + a.height / 2 - b.y - b.height / 2),
     };
   });
-  expect(continuity.same).toBe(true);
-  expect(continuity.dx).toBeLessThan(25);
-  expect(continuity.dy).toBeLessThan(25);
+  expect(result.sameCan && result.sameLabel).toBe(true);
+  expect(result.dx).toBeLessThan(2);
+  expect(result.dy).toBeLessThan(2);
   await page.locator('.unwrap-scroll').evaluate((el) =>
-    window.scrollTo({
+    scrollTo({
       top: el.getBoundingClientRect().bottom + scrollY - innerHeight,
       behavior: 'instant',
     }),
   );
-  await page.waitForTimeout(1000);
-  await expect(page.locator('.unwrapped-label')).toHaveCSS('opacity', '1');
-  await expect(page.locator('.unwrap-can .can-label-layer')).toHaveCSS('opacity', '0');
-  await expect(page.locator('.label-curl')).toHaveCSS('opacity', '0');
+  await page.waitForTimeout(150);
+  expect(
+    await page.locator('.motion-label-back').evaluate((el) => Number(getComputedStyle(el).opacity)),
+  ).toBeGreaterThan(0.99);
+  expect(
+    await page.locator('.motion-label-surface').evaluate((el) => el.getBoundingClientRect().width),
+  ).toBeGreaterThan(100);
+  expect(
+    await page.evaluate(
+      () =>
+        document.querySelector('.motion-label-surface .label-artwork') ===
+        (window as any).__motionLabel,
+    ),
+  ).toBe(true);
 });
 
 test('reduced motion retains visible content and a usable studio', async ({ page }) => {

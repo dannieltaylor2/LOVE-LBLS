@@ -113,6 +113,7 @@ export function initPersonalizer() {
     q('#summary-occasion').textContent = occasionInput.selectedOptions[0].text;
     q('#summary-message').textContent = state.message || 'Made just for you.';
     setButtonStates();
+    document.dispatchEvent(new Event('love-labels:change'));
   }
   function save() {
     clearTimeout(saveTimer);
@@ -234,6 +235,7 @@ export function initPersonalizer() {
   function setAngle(value: string) {
     angleInput.value = value;
     q<HTMLElement>('.live-can').style.setProperty('--can-angle', `${value}deg`);
+    document.dispatchEvent(new Event('love-labels:angle'));
     document
       .querySelectorAll<HTMLButtonElement>('[data-angle]')
       .forEach((button) =>
