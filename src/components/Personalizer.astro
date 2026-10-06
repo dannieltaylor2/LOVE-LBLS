@@ -1,0 +1,262 @@
+---
+import Can from './Can.astro';
+import LabelArtwork from './LabelArtwork.astro';
+import { designs } from '../data/site';
+---
+
+<section
+  id="personalize"
+  class="personalizer section-shell"
+  aria-labelledby="personalizer-heading"
+  data-chapter
+>
+  <div class="section-kicker">
+    <span class="eyebrow">04 / YOUR TURN</span>
+    <span class="eyebrow">A ONE-OF-A-KIND KIND OF GIFT</span>
+  </div>
+  <div class="personalizer-grid">
+    <div class="personalizer-controls">
+      <p class="eyebrow">THE PERSONALIZATION STUDIO</p>
+      <h2 id="personalizer-heading">
+        MAKE IT
+        <br />
+        TRULY <span class="muted">THEIRS.</span>
+      </h2>
+      <p class="personalizer-intro">
+        Their name. Your words. A little something
+        <br />
+        that could only come from you.
+      </p>
+      <noscript>
+        <p class="review-note">
+          Enable JavaScript to personalize a label and download your design.
+        </p>
+      </noscript>
+      <form id="personalizer-form" method="post">
+        <div class="field">
+          <label for="occasion">OCCASION</label>
+          <select id="occasion" name="occasion">
+            <option value="birthday">Birthday</option>
+            <option value="name-day">Name day</option>
+            <option value="friends">Best friends</option>
+            <option value="anniversary">Anniversary</option>
+            <option value="wedding">Wedding</option>
+            <option value="thank-you">Thank you</option>
+            <option value="graduation">Graduation</option>
+            <option value="team">Team / corporate celebration</option>
+            <option value="just-because">Just because</option>
+          </select>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="recipient">
+              THEIR NAME <span>MAX. 24</span>
+            </label>
+            <input
+              id="recipient"
+              name="name"
+              type="text"
+              value="Christopher"
+              maxlength="24"
+              placeholder="Someone special"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <div class="field field--age">
+            <label for="age">
+              AGE <span>OPTIONAL</span>
+            </label>
+            <input
+              id="age"
+              name="age"
+              type="number"
+              min="0"
+              max="120"
+              value="18"
+              inputmode="numeric"
+            />
+          </div>
+        </div>
+        <div class="field">
+          <label for="message">
+            YOUR MESSAGE <span id="message-count">25 / 80</span>
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            maxlength="80"
+            rows="2"
+            placeholder="The thing only you would say."
+          >Now you have the freedom!</textarea>
+        </div>
+        <fieldset class="style-field">
+          <legend>MAKE IT THEIR COLOR</legend>
+          <div class="color-options">
+            {designs.map((d, i) => (
+              <button
+                type="button"
+                class:list={['color-option', { selected: i === 0 }]}
+                style={`--swatch:${d.color}`}
+                data-color={d.color}
+                data-ink={d.ink}
+                aria-label={`${['Magenta', 'Lilac', 'Peach', 'Rose'][i]} label`}
+                aria-pressed={i === 0}
+              >
+                <span></span>
+              </button>
+            ))}
+          </div>
+        </fieldset>
+        <div class="photo-field">
+          <label for="photo" class="text-link">
+            + ADD A PHOTO <span class="muted">OPTIONAL</span>
+          </label>
+          <input
+            id="photo"
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+            aria-describedby="photo-help"
+          />
+          <button id="remove-photo" type="button" class="text-link" hidden>
+            REMOVE PHOTO ×
+          </button>
+          <p id="photo-help">JPG, PNG or WebP · up to 5 MB · stays on your device</p>
+        </div>
+        <fieldset class="design-field">
+          <legend>
+            CHOOSE YOUR DESIGN <span>01 — 04</span>
+          </legend>
+          <div class="design-picker">
+            {designs.map((d, i) => (
+              <button
+                type="button"
+                data-design-option={d.id}
+                class:list={['design-option', { selected: i === 0 }]}
+                aria-label={`${d.name} artwork`}
+                aria-pressed={i === 0}
+                style={`--label-color:${d.color};--label-ink:${d.ink}`}
+              >
+                <LabelArtwork
+                  design={d.id}
+                  name={d.sampleName}
+                  age={d.sampleAge}
+                  message={d.sampleMessage}
+                />
+                <span>{d.number}</span>
+              </button>
+            ))}
+          </div>
+        </fieldset>
+        <p class="form-status" id="personalizer-status" role="status" aria-live="polite"></p>
+        <button class="button button--light preview-button" type="submit">
+          PREVIEW MY LABEL{' '}
+          <span>
+            <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.4" />
+            </svg>
+          </span>
+        </button>
+        <p class="preview-note">Just exploring? Go for it. No checkout needed.</p>
+      </form>
+    </div>
+    <div class="personalizer-display">
+      <div class="preview-topline">
+        <span class="eyebrow">LIVE PREVIEW</span>
+        <span class="eyebrow">
+          <span class="status-dot"></span> MADE FOR YOU
+        </span>
+      </div>
+      <div class="live-can-stage">
+        <div class="preview-circle" aria-hidden="true"></div>
+        <Can class="live-can" />
+        <div class="preview-callout preview-callout--name">
+          YOUR TEXT HERE<span></span>
+        </div>
+        <div class="preview-callout preview-callout--message">
+          CUSTOM MESSAGE<span></span>
+        </div>
+      </div>
+      <div class="angle-control">
+        <label for="can-angle" class="eyebrow">
+          A DIFFERENT POINT OF VIEW <span>↔</span>
+        </label>
+        <input
+          id="can-angle"
+          type="range"
+          min="-35"
+          max="35"
+          value="0"
+          aria-label="Rotate label preview"
+        />
+        <div class="angle-buttons">
+          <button type="button" data-angle="-30" aria-pressed="false">
+            <Can class="mini-can" />
+            <span>LEFT</span>
+          </button>
+          <button type="button" data-angle="0" aria-pressed="true">
+            <Can class="mini-can" />
+            <span>FRONT</span>
+          </button>
+          <button type="button" data-angle="30" aria-pressed="false">
+            <Can class="mini-can" />
+            <span>RIGHT</span>
+          </button>
+        </div>
+      </div>
+      <p class="display-note">250 ML SLIM CAN · LABEL ONLY</p>
+    </div>
+  </div>
+</section>
+<dialog id="design-preview" class="preview-dialog" aria-labelledby="preview-title">
+  <div class="dialog-top">
+    <span class="wordmark">
+      LOVE LABELS<sup>®</sup>
+    </span>
+    <button class="icon-button" data-close-dialog aria-label="Close design preview">
+      ×
+    </button>
+  </div>
+  <div class="preview-dialog-grid">
+    <div class="review-product">
+      <Can class="review-can" />
+    </div>
+    <div class="review-copy">
+      <p class="eyebrow">SMALL OBJECT. PERSONAL MEANING.</p>
+      <h2 id="preview-title">
+        THAT’S
+        <br />
+        SO <span class="muted">THEM.</span>
+      </h2>
+      <p>Your label, with your story all over it.</p>
+      <dl class="design-summary">
+        <div>
+          <dt>FOR</dt>
+          <dd id="summary-name">Christopher</dd>
+        </div>
+        <div>
+          <dt>OCCASION</dt>
+          <dd id="summary-occasion">Birthday</dd>
+        </div>
+        <div>
+          <dt>YOUR WORDS</dt>
+          <dd id="summary-message">Now you have the freedom!</dd>
+        </div>
+      </dl>
+      <button id="download-design" type="button" class="button button--light">
+        DOWNLOAD MY DESIGN <span>↓</span>
+      </button>
+      <button type="button" class="text-link" data-close-dialog>
+        KEEP MAKING IT PERSONAL{' '}
+        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.4" />
+        </svg>
+      </button>
+      <p class="review-note">
+        Save an SVG design proof to keep or share. This is a visual preview; final print sizing is
+        confirmed before production. Online ordering is not open yet.
+      </p>
+      <p id="download-status" role="status"></p>
+    </div>
+  </div>
+</dialog>

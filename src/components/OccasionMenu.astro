@@ -1,0 +1,49 @@
+---
+import Can from './Can.astro';
+import { occasions } from '../data/site';
+---
+
+<section id="occasions" class="occasion-menu section-shell" aria-labelledby="occasions-heading">
+  <div class="section-kicker">
+    <h2 id="occasions-heading" class="eyebrow">
+      06 / THERE’S ALWAYS A REASON
+    </h2>
+    <span class="eyebrow">FIND YOURS ↓</span>
+  </div>
+  <div class="occasion-rows">
+    {occasions.map((o, i) => (
+      <div class="occasion-row" data-occasion={o.design}>
+        <button
+          type="button"
+          class="occasion-trigger"
+          aria-expanded="false"
+          aria-controls={`occasion-panel-${i}`}
+        >
+          <span class="occasion-index">0{i + 1}</span>
+          <span class="occasion-name">{o.name}</span>
+          <span class="occasion-note">{o.note}</span>
+          <span class="occasion-arrow">
+            <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.4" />
+            </svg>
+          </span>
+        </button>
+        <div id={`occasion-panel-${i}`} class="occasion-panel" hidden>
+          <Can design={o.design} />
+          <div>
+            <p>{o.note}</p>
+            <a href="#personalize" data-select-design={o.design} class="text-link">
+              MAKE IT PERSONAL{' '}
+              <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.4" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+  <div class="occasion-hover" aria-hidden="true">
+    <Can />
+  </div>
+</section>

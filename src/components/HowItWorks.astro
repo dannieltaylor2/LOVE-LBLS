@@ -1,0 +1,125 @@
+---
+import Can from './Can.astro';
+import LabelArtwork from './LabelArtwork.astro';
+import { designs } from '../data/site';
+---
+
+<section
+  id="how-it-works"
+  class="how-it-works section-shell"
+  aria-labelledby="how-heading"
+  data-chapter
+>
+  <div class="section-kicker">
+    <span class="eyebrow">03 / KEEP IT SIMPLE</span>
+    <span class="eyebrow">FROM ORDINARY TO ALL YOURS</span>
+  </div>
+  <div class="section-heading-row">
+    <h2 id="how-heading">
+      FROM IDEA
+      <br />
+      <span class="muted">TO GIFT.</span>
+    </h2>
+    <p class="section-intro">
+      A few little details.
+      <br />
+      One very personal gift.
+      <br />
+      Here’s how it happens.
+    </p>
+  </div>
+  <ol class="process">
+    <li>
+      <div class="process-visual process-choose">
+        {designs.slice(0, 3).map((d) => (
+          <div style={`--label-color:${d.color};--label-ink:${d.ink}`}>
+            <LabelArtwork
+              design={d.id}
+              name={d.sampleName}
+              age={d.sampleAge}
+              message={d.sampleMessage}
+            />
+          </div>
+        ))}
+      </div>
+      <div class="process-number">
+        01 <span>→</span>
+      </div>
+      <h3>CHOOSE</h3>
+      <p>Find the design that feels like them. There’s one for every kind of occasion.</p>
+      <a href="#designs" class="text-link">
+        EXPLORE DESIGNS{' '}
+        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.4" />
+        </svg>
+      </a>
+    </li>
+    <li>
+      <div class="process-visual process-personalize">
+        <Can class="process-personalized-can" />
+        <span class="eyebrow">NAME</span>
+        <strong>
+          Christopher<span class="typing-cursor">|</span>
+        </strong>
+        <div>
+          <span class="eyebrow">AGE</span>
+          <strong>18</strong>
+        </div>
+        <span class="eyebrow">MESSAGE</span>
+        <p>Now you have the freedom!</p>
+      </div>
+      <div class="process-number">
+        02 <span>→</span>
+      </div>
+      <h3>PERSONALIZE</h3>
+      <p>A name. An inside joke. A favorite photo. Add the things only you would know.</p>
+      <a href="#personalize" class="text-link">
+        TRY IT YOURSELF{' '}
+        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.4" />
+        </svg>
+      </a>
+    </li>
+    <li>
+      <div class="process-visual process-print">
+        <Can class="process-printed-can" />
+        <div class="print-sheet" style="--label-color:#cbef62;--label-ink:#292b1c">
+          <LabelArtwork />
+        </div>
+        <span class="print-mark">+</span>
+        <span class="print-mark">+</span>
+        <span class="eyebrow print-note">PREMIUM VINYL / MADE FOR YOU</span>
+      </div>
+      <div class="process-number">
+        03 <span>→</span>
+      </div>
+      <h3>WE CREATE IT</h3>
+      <p>Your design, professionally prepared and printed on high-quality vinyl.</p>
+      <span class="eyebrow process-detail">PRINTED WITH CARE.</span>
+    </li>
+    <li>
+      <div class="process-visual process-gift">
+        <Can />
+        <span class="gift-spark">
+          <svg class="star-icon" viewBox="0 0 100 100" aria-hidden="true">
+            <path
+              d="M50 0 61 32 85 15 68 39 100 50 68 61 85 85 61 68 50 100 39 68 15 85 32 61 0 50 32 39 15 15 39 32Z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
+      </div>
+      <div class="process-number">
+        04{' '}
+        <span>
+          <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.4" />
+          </svg>
+        </span>
+      </div>
+      <h3>READY TO GIFT</h3>
+      <p>Wrap it around their favorite drink. Give them something worth keeping.</p>
+      <span class="eyebrow process-detail">THE GOOD PART IS THE REACTION.</span>
+    </li>
+  </ol>
+</section>

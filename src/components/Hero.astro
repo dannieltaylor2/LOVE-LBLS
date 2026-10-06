@@ -1,0 +1,93 @@
+---
+import Can from './Can.astro';
+---
+
+<section id="top" class="hero-scroll" aria-labelledby="hero-heading" data-chapter>
+  <div class="hero-stage">
+    <div class="hero-text">
+      <p class="eyebrow">
+        <span class="status-dot"></span> PERSONALIZED DRINK STICKERS
+      </p>
+      <h1 id="hero-heading">
+        TURN AN
+        <br />
+        ORDINARY CAN
+        <br />
+        <span class="muted">INTO THEIR</span>
+        <br />
+        <span class="muted">FAVORITE GIFT.</span>
+      </h1>
+      <p class="hero-description">
+        Custom vinyl labels for their favorite drink.
+        <br class="desktop-break" /> Your words, wrapped around a 250 ml can.
+      </p>
+      <div class="hero-actions">
+        <a class="button button--light" href="#personalize">
+          CREATE YOURS{' '}
+          <span aria-hidden="true">
+            <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.4" />
+            </svg>
+          </span>
+        </a>
+        <a class="text-link watch-link" href="#how-it-works">
+          <span class="play-icon" aria-hidden="true">
+            ▷
+          </span>{' '}
+          WATCH HOW IT WORKS
+        </a>
+      </div>
+    </div>
+    <div class="hero-payoff" aria-hidden="true">
+      <p class="eyebrow">A LITTLE PERSONALITY GOES A LONG WAY.</p>
+      <h2>
+        THAT’S
+        <br />
+        BETTER<span class="period">.</span>
+      </h2>
+      <p>
+        Same drink.
+        <br />
+        <span class="muted">Completely different meaning.</span>
+      </p>
+    </div>
+    <div
+      class="hero-product"
+      tabindex="0"
+      role="button"
+      aria-label="Reveal the personalized label. Move your pointer, drag, or press Enter."
+      aria-pressed="false"
+    >
+      <div class="hero-orbit" aria-hidden="true"></div>
+      <Can
+        reveal
+        class="hero-can"
+        label="Silver can. Move over it to reveal a colorful personalized birthday label."
+      />
+    </div>
+    <div class="reveal-annotation">
+      <span class="annotation-dot"></span>
+      <span>
+        MOVE YOUR MOUSE
+        <br />
+        TO REVEAL THE DESIGN
+      </span>
+      <span class="touch-instruction">
+        TOUCH THE CAN
+        <br />
+        TO REVEAL THE DESIGN
+      </span>
+    </div>
+    <div class="hero-bottom">
+      <a class="scroll-cue" href="#designs">
+        <span aria-hidden="true">↓</span> SCROLL
+        <br />
+        TO EXPLORE
+      </a>
+      <p class="eyebrow hero-spec">250 ML. ENDLESS POSSIBILITIES.</p>
+      <p class="eyebrow hero-counter">
+        01 <span>/ 07</span>
+      </p>
+    </div>
+  </div>
+</section>

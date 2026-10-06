@@ -1,0 +1,210 @@
+---
+import { navigation } from '../data/site';
+---
+
+<footer class="site-footer section-shell" id="contact">
+  <div class="footer-top">
+    <a class="wordmark" href="#top">
+      LOVE LABELS<sup>®</sup>
+    </a>
+    <p>
+      Have someone in mind?
+      <br />
+      <a href="#personalize" class="text-link">
+        LET’S MAKE IT PERSONAL{' '}
+        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.4" />
+        </svg>
+      </a>
+    </p>
+    <div class="footer-links">
+      {navigation.map((item) => (
+        <a href={item.href}>{item.label}</a>
+      ))}
+      <button data-info="faq">FAQ</button>
+      <button data-info="shipping">Shipping</button>
+      <button data-info="contact">
+        Get in touch{' '}
+        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.4" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <p class="footer-statement">
+    ORDINARY CAN.
+    <br />
+    <span>PERSONAL STORY.</span>
+  </p>
+  <div class="footer-bottom">
+    <span>© {new Date().getFullYear()} LOVE LABELS</span>
+    <span>MADE TO MEAN SOMETHING.</span>
+    <div>
+      <button data-info="instagram">
+        Instagram{' '}
+        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.4" />
+        </svg>
+      </button>
+      <button data-info="terms">Terms</button>
+      <button data-info="privacy">Privacy</button>
+      <a href="#top" aria-label="Back to top">
+        ↑
+      </a>
+    </div>
+  </div>
+</footer>
+<dialog id="info-dialog" class="info-dialog" aria-labelledby="info-title">
+  <div class="dialog-top">
+    <span class="wordmark">
+      LOVE LABELS<sup>®</sup>
+    </span>
+    <button class="icon-button" data-close-dialog aria-label="Close information">
+      ×
+    </button>
+  </div>
+  <div class="info-content">
+    <p class="eyebrow">THE SMALL PRINT. SIMPLY PUT.</p>
+    <h2 id="info-title"></h2>
+    <div id="info-body"></div>
+  </div>
+</dialog>
+<template id="info-faq">
+  <details open>
+    <summary>Am I buying the drink?</summary>
+    <p>
+      The product is a personalized vinyl label. You provide a standard European 250 ml slim can and
+      wrap the label around it.
+    </p>
+  </details>
+  <details>
+    <summary>How do I apply the label?</summary>
+    <p>
+      Start with a clean, dry can at room temperature. Peel back one edge, align it vertically, then
+      smooth the label around the can a little at a time.
+    </p>
+  </details>
+  <details>
+    <summary>Can I use a photo?</summary>
+    <p>
+      Yes. Add a JPG, PNG or WebP image in the studio. Your image stays in your browser and is
+      included when you download your design.
+    </p>
+  </details>
+  <details>
+    <summary>Will it fit any can?</summary>
+    <p>
+      The designs are intended for standard European 250 ml slim cans. Shapes and dimensions vary,
+      so confirm your can’s measurements before printing. The downloadable SVG is a design proof,
+      not a production dieline.
+    </p>
+  </details>
+  <details>
+    <summary>Can I order for a wedding or a team?</summary>
+    <p>
+      The studio supports wedding and team designs. Save your design and an enquiry brief to prepare
+      your request. Online ordering is not open yet.
+    </p>
+  </details>
+</template>
+<template id="info-shipping">
+  <p>
+    Online ordering is not open yet. Shipping destinations, pricing, production times and delivery
+    options will be available before orders are accepted.
+  </p>
+  <p>You can create and download a design now. No payment is taken in this studio.</p>
+  <a href="#personalize" data-close-dialog class="text-link">
+    CREATE A DESIGN{' '}
+    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.4" />
+    </svg>
+  </a>
+</template>
+<template id="info-contact">
+  <p>
+    Planning a birthday, wedding or something for your team? Prepare an enquiry with the details
+    below. Download it to keep with your label design.
+  </p>
+  <form id="enquiry-form">
+    <div class="field">
+      <label for="enquiry-name">YOUR NAME</label>
+      <input id="enquiry-name" name="name" required maxlength="100" autocomplete="name" />
+    </div>
+    <div class="field">
+      <label for="enquiry-email">YOUR EMAIL</label>
+      <input
+        id="enquiry-email"
+        name="email"
+        type="email"
+        required
+        maxlength="200"
+        autocomplete="email"
+      />
+    </div>
+    <div class="field">
+      <label for="enquiry-message">WHAT DO YOU HAVE IN MIND?</label>
+      <textarea
+        id="enquiry-message"
+        name="message"
+        required
+        maxlength="2000"
+        rows="4"
+        placeholder="Occasion, quantity, date and any little details…"
+      ></textarea>
+    </div>
+    <button class="button button--light" type="submit">
+      SAVE MY ENQUIRY <span>↓</span>
+    </button>
+    <p class="review-note">
+      This saves a file to your device. Nothing is sent or submitted. A contact address will be
+      added when ordering opens.
+    </p>
+    <p role="status" id="enquiry-status"></p>
+  </form>
+</template>
+<template id="info-instagram">
+  <p>
+    Our official Instagram link will be added when the studio launches. Until then, make something
+    worth sharing in the label studio.
+  </p>
+  <a href="#personalize" data-close-dialog class="text-link">
+    MAKE YOUR LABEL{' '}
+    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.4" />
+    </svg>
+  </a>
+</template>
+<template id="info-terms">
+  <p>
+    This website currently offers an interactive design preview. It does not accept orders or
+    payments and does not create a purchase agreement.
+  </p>
+  <p>
+    Downloaded designs are visual proofs. Final dimensions, print specifications, prices, fulfilment
+    and purchase terms must be agreed before production.
+  </p>
+  <p>
+    Only upload images and messages you have permission to use. All supplied artwork is illustrative
+    and may be replaced before the store launches.
+  </p>
+</template>
+<template id="info-privacy">
+  <p>
+    Your name, message, occasion and color choices are saved locally in your browser so you can
+    return to your design. Uploaded photos stay in the current page session and are not uploaded to
+    a server.
+  </p>
+  <p>
+    Downloaded design files include the photo and text you selected. Enquiry forms generate a local
+    file; they do not send your details anywhere.
+  </p>
+  <p>
+    This version uses no analytics, advertising trackers or third-party fonts. Your hosting provider
+    may maintain standard access logs. A full privacy notice with the store operator’s details will
+    be published before ordering opens.
+  </p>
+  <button id="clear-design" class="button button--outline" type="button">
+    CLEAR MY SAVED DESIGN <span>×</span>
+  </button>
+  <p id="clear-status" role="status"></p>
+</template>

@@ -1,0 +1,95 @@
+---
+import LabelArtwork from './LabelArtwork.astro';
+import { designs } from '../data/site';
+interface Props {
+  design?: string;
+  blank?: boolean;
+  reveal?: boolean;
+  name?: string;
+  age?: string;
+  message?: string;
+  class?: string;
+  label?: string;
+}
+const {
+  design = 'birthday',
+  blank = false,
+  reveal = false,
+  name,
+  age,
+  message,
+  class: className = '',
+  label,
+} = Astro.props;
+const d = designs.find((d) => d.id === design) || designs[0];
+const uid = crypto.randomUUID();
+---
+
+<div
+  class:list={['can', className, { 'can--blank': blank, 'can--reveal': reveal }]}
+  data-can
+  data-design={design}
+  style={`--label-color:${d.color};--label-ink:${d.ink}`}
+  role="img"
+  aria-label={
+    label ||
+    (blank
+      ? 'A blank silver 250 ml slim can'
+      : `${d.name} vinyl label wrapped around a silver slim can`)
+  }
+>
+  <svg class="can-metal" viewBox="0 0 240 580" aria-hidden="true">
+    <defs>
+      <linearGradient id={`shine-${uid}`}>
+        <stop stop-color="#fff" stop-opacity="0" />
+        <stop offset=".2" stop-color="#fff" stop-opacity=".25" />
+        <stop offset=".32" stop-color="#fff" stop-opacity=".04" />
+        <stop offset=".65" stop-color="#000" stop-opacity=".3" />
+        <stop offset=".88" stop-color="#fff" stop-opacity=".12" />
+        <stop offset="1" stop-color="#000" stop-opacity=".7" />
+      </linearGradient>
+      <clipPath id={`body-${uid}`}>
+        <path d="M36 52Q36 67 26 85Q20 97 20 111V518Q20 541 38 548Q120 565 202 548Q220 541 220 518V111Q220 97 214 85Q204 67 204 52Z" />
+      </clipPath>
+    </defs>
+    <svg
+      x="20"
+      y="25"
+      width="200"
+      height="532"
+      viewBox="270 90 480 1360"
+      preserveAspectRatio="none"
+    >
+      <image
+        href={import.meta.env.BASE_URL + 'images/products/silver-can.webp'}
+        width="1024"
+        height="1536"
+      />
+    </svg>
+    <g clip-path={`url(#body-${uid})`}>
+      {!blank && (
+        <g class="can-label-layer">
+          <svg
+            x="20"
+            y="100"
+            width="200"
+            height="419"
+            viewBox="0 0 400 700"
+            preserveAspectRatio="none"
+          >
+            <LabelArtwork
+              uid={uid}
+              design={design}
+              name={name ?? d.sampleName}
+              age={age ?? d.sampleAge}
+              message={message ?? d.sampleMessage}
+            />
+          </svg>
+          <path d="M20 100Q120 113 220 100V111Q120 124 20 111Z" fill="#000" opacity=".09" />
+          <rect x="20" y="100" width="200" height="419" fill={`url(#shine-${uid})`} />
+        </g>
+      )}
+    </g>
+  </svg>
+  <div class="can-shadow" aria-hidden="true"></div>
+</div>

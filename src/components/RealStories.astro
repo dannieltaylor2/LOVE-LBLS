@@ -1,0 +1,62 @@
+---
+import { lifestyle } from '../data/site';
+---
+
+<section class="real-stories section-shell" aria-labelledby="people-heading">
+  <div class="section-kicker">
+    <span class="eyebrow">05 / THE REASON WE MAKE THEM</span>
+    <span class="eyebrow">GOOD GIFTS GET PERSONAL.</span>
+  </div>
+  <h2 id="people-heading">
+    MADE FOR PEOPLE.
+    <br />
+    <span class="muted">NOT SHELVES.</span>
+  </h2>
+  <div class="stories-layout">
+    <figure class="story-main-image">
+      <img
+        src={lifestyle.main.src}
+        alt={lifestyle.main.alt}
+        width="1536"
+        height="1024"
+        loading="lazy"
+      />
+      <figcaption>
+        <span>THE BIG DAYS. THE LITTLE DETAILS.</span>
+        <span>01 / BIRTHDAYS</span>
+      </figcaption>
+    </figure>
+    <div class="story-aside">
+      <p>
+        It’s never
+        <br />
+        just a <em>can.</em>
+      </p>
+      <figure class="story-secondary-image">
+        <img
+          src={lifestyle.secondary.src}
+          alt={lifestyle.secondary.alt}
+          width="1122"
+          height="1402"
+          loading="lazy"
+        />
+        <figcaption>02 / TOGETHER</figcaption>
+      </figure>
+      <div class="story-aside-copy">
+        <p>
+          It’s “I saw this and thought of you.”
+          <br />
+          It’s that joke from three summers ago.
+          <br />
+          It’s a little reminder that someone gets you.
+        </p>
+        <a href="#personalize" class="text-link">
+          MAKE SOMEONE’S DAY{' '}
+          <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="1.4" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
