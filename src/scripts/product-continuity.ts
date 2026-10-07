@@ -270,7 +270,7 @@ export function mountProductContinuity(onHeroProgress: (progress: number) => voi
       yaw = 0,
       flatten = 0;
     if (s >= unwrapStart && s <= unwrapEnd) {
-      const t = ratio(s, unwrapStart, unwrapEnd);
+      const t = ratio(s, unwrapStart, unwrapStart + (unwrapEnd - unwrapStart) * 0.65);
       paper = blend(labelOn(pose), { ...flat, y: flat.y + s - unwrapStart }, t);
       yaw = -Math.sin(t * Math.PI) * 58;
       flatten = t;
@@ -424,7 +424,7 @@ export function mountLocalUnwrap() {
     scrollTrigger: {
       trigger: scene,
       start: 'top 65%',
-      end: 'bottom 65%',
+      end: 'bottom bottom',
       scrub: true,
       onRefresh: measure,
       invalidateOnRefresh: true,

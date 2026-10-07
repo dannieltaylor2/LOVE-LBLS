@@ -36,6 +36,19 @@ export function initMotion() {
       label.style.setProperty('--reveal-alpha', String(Math.min(1, radius / 30)));
     }
   }
+  let previousScroll = window.scrollY;
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (window.scrollY !== previousScroll) {
+        keyboardRevealed = false;
+        heroProduct.setAttribute('aria-pressed', 'false');
+        stopPointer();
+        previousScroll = window.scrollY;
+      }
+    },
+    { passive: true, signal },
+  );
   function stopPointer() {
     cancelAnimationFrame(frame);
     frame = 0;
@@ -118,8 +131,8 @@ export function initMotion() {
 
   media.add(
     {
-      desktop: '(min-width: 901px) and (min-height: 650px)',
-      mobile: '(max-width: 900px), (max-height: 649px)',
+      desktop: '(min-width: 901px) and (min-height: 560px)',
+      mobile: '(max-width: 900px), (max-height: 559px)',
       motion: '(prefers-reduced-motion: no-preference)',
     },
     (context) => {
@@ -168,14 +181,26 @@ export function initMotion() {
           },
           scrollTrigger: {
             trigger: heroProduct,
-            start: 'top 70%',
-            end: 'center 35%',
+            start: 0,
+            end: () =>
+              Math.max(
+                180,
+                heroProduct.getBoundingClientRect().top +
+                  scrollY +
+                  heroProduct.offsetHeight * 0.5 -
+                  innerHeight * 0.35,
+              ),
             scrub: true,
             invalidateOnRefresh: true,
           },
         });
         releaseContinuity = mountLocalUnwrap();
       }
+      gsap.to('.hero-bottom', {
+        autoAlpha: 0,
+        ease: 'none',
+        scrollTrigger: { start: 0, end: 120, scrub: true },
+      });
       document.querySelectorAll<HTMLElement>('main h2:not(.hero-payoff h2)').forEach((heading) => {
         gsap.fromTo(
           heading.querySelectorAll('.motion-type-line'),

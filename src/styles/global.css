@@ -4881,7 +4881,7 @@ html {
   }
 }
 
-@media (max-height: 649px) and (prefers-reduced-motion: no-preference) {
+@media (max-height: 559px) and (prefers-reduced-motion: no-preference) {
   .hero-scroll,
   .unwrap-scroll {
     height: auto;
@@ -5036,4 +5036,223 @@ fieldset legend,
   text-decoration: underline;
   text-underline-offset: 6px;
   text-decoration-thickness: 1px;
+}
+
+/* Complete scenes fit the browser viewport, including laptop browser chrome. */
+.material-or {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: #a0a0a0;
+  margin: 10px 0 6px;
+}
+@media (min-width: 901px) {
+  .hero-stage {
+    min-height: 0;
+    padding-top: max(110px, 18svh);
+  }
+  .hero-text h1 {
+    font-size: clamp(42px, min(4.7vw, 8.3svh), 110px);
+  }
+  .hero-description {
+    margin-top: 20px;
+  }
+  .hero-bottom {
+    bottom: 24px;
+  }
+  .hero-actions {
+    margin-top: 22px;
+    margin-bottom: 65px;
+  }
+  .collection {
+    height: calc(100svh - 100px);
+    min-height: 420px;
+    padding-top: 24px;
+    padding-bottom: 20px;
+    display: grid;
+    grid-template-columns: 27% 1fr;
+    grid-template-rows: 28px minmax(0, 1fr);
+    column-gap: 3%;
+    row-gap: 24px;
+  }
+  .collection .section-kicker {
+    grid-column: 1 / -1;
+    margin: 0;
+    padding: 0;
+  }
+  .collection .section-heading-row {
+    width: auto;
+    margin: 0;
+    display: block;
+    align-self: center;
+  }
+  .collection .section-heading-row h2 {
+    font-size: clamp(30px, min(3.45vw, 6.5svh), 82px);
+    line-height: 0.98;
+  }
+  .collection .motion-type-line {
+    white-space: nowrap;
+  }
+  .collection .section-intro {
+    font-size: 14px;
+    margin: 24px 0 0;
+    max-width: none;
+  }
+  .collection .section-intro .text-link,
+  .collection-foot {
+    display: none;
+  }
+  .design-exhibition {
+    margin: 0;
+    gap: 16px;
+    align-self: stretch;
+    align-items: end;
+    min-height: 0;
+  }
+  .design-display {
+    padding-top: 0;
+    min-width: 0;
+  }
+  .design-product-link {
+    height: clamp(180px, 42svh, 600px);
+  }
+  .design-display .gallery-product {
+    width: min(11vw, 16svh);
+  }
+  .design-caption {
+    min-height: 135px;
+    padding: 12px 5px;
+    gap: 5px;
+  }
+  .design-caption h3 {
+    font-size: clamp(11px, 1.05vw, 16px);
+    white-space: nowrap;
+  }
+  .design-caption p {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  .design-arrow {
+    margin-top: 6px;
+    width: 30px;
+    height: 30px;
+  }
+  .unwrap-scroll {
+    min-height: 0;
+    height: 175svh;
+  }
+  .unwrap-stage {
+    min-height: 0;
+    height: 100svh;
+    padding-top: 100px;
+  }
+  .unwrap-heading h2 {
+    font-size: clamp(32px, min(4vw, 6.5svh), 76px);
+  }
+  .unwrap-visual {
+    left: 34%;
+    right: 6%;
+    top: 22%;
+    bottom: 22%;
+  }
+  .unwrap-can {
+    width: min(18vw, 24svh);
+    left: 0;
+  }
+  .unwrapped-label {
+    left: 12%;
+    width: min(38vw, 63svh);
+    height: min(29vw, 48svh);
+    max-width: none;
+  }
+  .unwrap-bottom {
+    bottom: 28px;
+  }
+}
+@media (max-width: 600px) {
+  .collection {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    min-height: 0;
+  }
+  .collection .section-kicker {
+    margin-bottom: 20px;
+  }
+  .collection .section-heading-row {
+    display: grid;
+    grid-template-columns: 55% 1fr;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .collection .section-heading-row h2 {
+    font-size: clamp(24px, 6.5vw, 36px);
+    line-height: 0.98;
+  }
+  .collection .motion-type-line {
+    white-space: nowrap;
+  }
+  .collection .section-intro {
+    margin: 0;
+    font-size: 11px;
+    line-height: 1.5;
+  }
+  .collection .section-intro .text-link,
+  .collection-foot {
+    display: none;
+  }
+  .design-exhibition {
+    margin: 0;
+    gap: 12px 16px;
+  }
+  .design-display {
+    padding-top: 0;
+  }
+  .design-product-link {
+    height: 16svh;
+    min-height: 115px;
+  }
+  .design-display .gallery-product {
+    width: min(14vw, 6svh);
+  }
+  .design-caption {
+    padding: 8px 4px;
+    min-height: 104px;
+    gap: 3px;
+    margin-top: 0;
+  }
+  .design-caption h3 {
+    font-size: 11px;
+  }
+  .design-caption p {
+    font-size: 11px;
+    line-height: 1.35;
+  }
+  .design-arrow {
+    width: 28px;
+    min-height: 28px;
+    height: 28px;
+    margin-top: 3px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .unwrap-scroll {
+    height: auto;
+    min-height: 0;
+  }
+  .unwrap-stage {
+    position: relative;
+  }
+}
+@media (max-width: 600px) {
+  .unwrap-can {
+    left: 0;
+    width: 135px;
+  }
+  .unwrapped-label {
+    left: 18%;
+    width: 66vw;
+    height: min(50vw, 220px);
+    aspect-ratio: auto;
+  }
 }
